@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
 
@@ -15,14 +16,6 @@ class TaskController extends Controller
     {
         return TaskResource::collection(Task::all());
     }
-
-    // /**
-    //  * Show the form for creating a new resource.
-    //  */
-    // public function create()
-    // {
-    //     //
-    // }
 
     /**
      * Store a newly created resource in storage.
@@ -41,21 +34,14 @@ class TaskController extends Controller
         return TaskResource::make($task);
     }
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  */
-    // public function edit(Task $task)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  */
-    // public function update(Request $request, Task $task)
-    // {
-    //     //
-    // }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateTaskRequest $request, Task $task)
+    {
+        $task->update($request->validated());
+        return TaskResource::make($task);
+    }
 
     // /**
     //  * Remove the specified resource from storage.
